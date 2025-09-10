@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useEffect } from "react";
 import {
@@ -12,6 +13,22 @@ import PreviewMeta from "../components/PreviewMeta";
 
 const queryClient = new QueryClient();
 
+interface MetaData {
+  title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  meta?: {
+    ogTitle?: string;
+    ogDescription?: string;
+    ogImage?: string;
+    twitterCard?: string;
+    twitterTitle?: string;
+    twitterDescription?: string;
+  };
+  error?: string;
+}
+
 export default function HomePage() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -22,17 +39,18 @@ export default function HomePage() {
 
 function MainApp() {
   const [submittedUrl, setSubmittedUrl] = useState<string>("");
-  const [metaData, setMetaData] = useState<any>(null);
+  const [metaData, setMetaData] = useState<MetaData | null>(null);
 
-  const { data, isLoading, error } = useQuery<any, Error>({
+  const { data, isLoading, error } = useQuery<MetaData, Error>({
     queryKey: ["scrape", submittedUrl],
     queryFn: async () => {
-      const res = await fetch(`/api/scrape?url=${encodeURIComponent(submittedUrl)}`);
+      const res = await fetch(
+        `/api/scrape?url=${encodeURIComponent(submittedUrl)}`
+      );
       return res.json();
     },
     enabled: !!submittedUrl,
   });
-
 
   useEffect(() => {
     if (data) {

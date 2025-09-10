@@ -2,15 +2,21 @@
 "use client";
 import React, { useState } from "react";
 
+interface MetaData {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
 interface EditMetaProps {
-  data: any;
-  onChange: (updated: any) => void;
+  data: MetaData;
+  onChange: (updated: MetaData) => void;
 }
 
 export default function EditMeta({ data, onChange }: EditMetaProps) {
-  const [localData, setLocalData] = useState(data);
+  const [localData, setLocalData] = useState<MetaData>(data);
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: keyof MetaData, value: string) => {
     const updated = { ...localData, [field]: value };
     setLocalData(updated);
     onChange(updated);
@@ -81,7 +87,7 @@ export default function EditMeta({ data, onChange }: EditMetaProps) {
         </span>
       </p>
 
-      
+     
       <label className="block text-sm font-medium text-gray-700 mb-1">
         Image
       </label>
@@ -93,7 +99,6 @@ export default function EditMeta({ data, onChange }: EditMetaProps) {
         placeholder="Enter image URL"
       />
 
-     
       <div className="flex items-center justify-between mb-1">
         <hr className="flex-grow border-gray-300" />
         <span className="px-2 text-xs text-gray-400">OR</span>
@@ -116,9 +121,7 @@ export default function EditMeta({ data, onChange }: EditMetaProps) {
         </label>
       </div>
 
-      <p className="text-xs text-gray-500 mt-2">
-        Recommended: 1200 × 630px
-      </p>
+      <p className="text-xs text-gray-500 mt-2">Recommended: 1200 × 630px</p>
     </div>
   );
 }

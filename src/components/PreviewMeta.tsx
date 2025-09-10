@@ -1,6 +1,19 @@
 
+
+interface MetaData {
+  twitterTitle?: string;
+  twitterDescription?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+}
+
 interface PreviewMetaProps {
-  data: any;
+  data: {
+    title?: string;
+    description?: string;
+    image?: string;
+    meta?: MetaData;
+  };
 }
 
 export default function PreviewMeta({ data }: PreviewMetaProps) {
@@ -8,6 +21,7 @@ export default function PreviewMeta({ data }: PreviewMetaProps) {
     <div className="p-6 bg-white border rounded-2xl shadow-sm">
       <h2 className="text-lg font-semibold text-indigo-700 mb-4">Preview</h2>
 
+      {/* Facebook Preview */}
       <div className="border border-gray-200 bg-gray-50 p-4 mb-4 rounded-lg shadow-sm">
         <p className="text-gray-500 text-xs mb-1">Facebook</p>
         <p className="font-semibold text-gray-900">{data.title}</p>
@@ -21,6 +35,7 @@ export default function PreviewMeta({ data }: PreviewMetaProps) {
         )}
       </div>
 
+      {/* Twitter Preview */}
       <div className="border border-gray-200 bg-gray-50 p-4 mb-4 rounded-lg shadow-sm">
         <p className="text-gray-500 text-xs mb-1">Twitter</p>
         <p className="font-semibold text-gray-900">
@@ -38,6 +53,7 @@ export default function PreviewMeta({ data }: PreviewMetaProps) {
         )}
       </div>
 
+      {/* Discord Preview */}
       <div className="border border-gray-200 bg-gray-50 p-4 mb-4 rounded-lg shadow-sm">
         <p className="text-gray-500 text-xs mb-1">Discord</p>
         <p className="font-semibold text-gray-900">
@@ -55,6 +71,7 @@ export default function PreviewMeta({ data }: PreviewMetaProps) {
         )}
       </div>
 
+      {/* Instagram Preview */}
       <div className="border border-gray-200 bg-gray-50 p-4 rounded-lg shadow-sm">
         <p className="text-gray-500 text-xs mb-1">Instagram</p>
         {data.image && (
@@ -69,3 +86,4 @@ export default function PreviewMeta({ data }: PreviewMetaProps) {
     </div>
   );
 }
+
